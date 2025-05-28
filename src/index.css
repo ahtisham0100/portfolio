@@ -1,0 +1,21 @@
+/* Smooth scrolling for parallax effects */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Parallax transition styles */
+.parallax-transition {
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Enhance section transitions */
+section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ensure content is above parallax backgrounds */
+.section-container {
+  position: relative;
+  z-index: 1;
+}

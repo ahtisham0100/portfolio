@@ -1,43 +1,61 @@
-"use client"
+"use client";
 
-import { ExternalLink, Github } from "lucide-react"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Parallax } from "react-scroll-parallax"
+import { useState } from "react";
+import { ExternalLink, Github } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Parallax } from "react-scroll-parallax";
+
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogClose,
+} from "@/components/ui/dialog"; // Adjust this import path if needed
+import { Button } from "@/components/ui/button";
 
 const Projects = () => {
   const projects = [
     {
-      title: "Restaurant E-commerce Platform",
+      title: "CPU Scheduling Simulator",
       description:
-        "Developed a comprehensive restaurant ecommerce platform featuring menu browsing, user authentication, and real-time order management. Integrated Firebase for backend services and role-based access control for management functionalities with ability to handle 50+ users at a time.",
-      techStack: ["Firebase", "React.js", "Node.js", "Express.js", "Bootstrap CSS"],
-      image: "/placeholder.svg?height=200&width=400",
-      githubLink: "#",
-      liveLink: "#",
+        "Built a dynamic scheduling simulator to visually demonstrate CPU scheduling algorithms such as FCFS, SJF, Round Robin, and Priority Scheduling. The platform allows users to input custom processes, configure time quantum, and visualize execution in a Gantt chart. It’s designed for educational use and real-time understanding of process scheduling behavior in operating systems.",
+      techStack: ["React.js", "Tailwind CSS", "ShadCN UI", "Chart.js"],
+      image: "/projects/scheduling-simulator-one.vercel.app_.png",
+      githubLink: "https://github.com/ahtisham0100/scheduling-simulator",
+      liveLink: "https://scheduling-simulator-one.vercel.app/",
     },
     {
       title: "Sleep Outside – E-commerce Website",
       description:
         "Achieved 9.5 rating from my client in developing the e-commerce platform for outdoor products, including Backpacks, sleeping bags and tents. Integrated features such as dynamic discount badges, real-time announcements, and user authentication with session tokens to ensure a seamless user experience.",
       techStack: ["React", "CSS", "Bootstrap", "MySQL", "Node.js", "Express.js"],
-      image: "/placeholder.svg?height=200&width=400",
+      image: "projects/sleepoutside.png?height=200&width=400",
       githubLink: "#",
       liveLink: "#",
     },
     {
-      title: "Mini Blogging Platform",
+      title: "Online Design Tool",
       description:
-        "Developing a full MERN stack blogging platform with user registration, content creation, and community interaction features including post likes, comment threads, and real-time notifications.",
-      techStack: ["React", "Node.js", "Express", "MySQL"],
-      image: "/placeholder.svg?height=200&width=400",
-      githubLink: "#",
-      liveLink: "#",
+        "Built a web-based platform that allows users to visually model software architecture components such as modules, services, databases, and interfaces. The tool supports drag-and-drop diagramming, system layering, entity-relationship modeling, and versioned saving. Designed to help developers and students plan and document software systems using industry-recognized architectural patterns.",
+      techStack: ["HTML" , "CSS", "React", "Bootstrap"],
+      image: "projects/ahti-sham.rocks_.png",
+      githubLink: "https://github.com/ahtisham0100/sda_cea",
+      liveLink: "https://sda-cea.vercel.app/",
     },
-  ]
+  ];
 
   return (
-    <section id="projects" className="py-20 bg-white dark:bg-gray-900">
+    <section id="projects" className="py-20 bg-white dark:bg-gray-900 relative">
       <div className="container mx-auto px-4 md:px-6">
         <Parallax translateY={[-20, 20]} opacity={[0.7, 1]} className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Projects</h2>
@@ -46,17 +64,44 @@ const Projects = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <Parallax key={index} translateY={[40 + index * 20, -40 - index * 20]} opacity={[0.7, 1]}>
+            <Parallax
+              key={index}
+              translateY={[40 + index * 20, -40 - index * 20]}
+              opacity={[0.7, 1]}
+            >
               <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-                <div className="h-48 overflow-hidden">
-                  <Parallax translateY={[-10, 10]} scale={[1, 1.1]} className="h-full">
+                {/* Use DialogTrigger for image click */}
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <div className="h-48 overflow-hidden cursor-pointer">
+                      <Parallax translateY={[-10, 10]} scale={[1, 1.1]} className="h-full">
+                        <img
+                          src={project.image || "/placeholder.svg"}
+                          alt={project.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </Parallax>
+                    </div>
+                  </DialogTrigger>
+
+                  <DialogContent className="sm:max-w-5xl max-w-full p-0 bg-transparent shadow-none">
                     <img
                       src={project.image || "/placeholder.svg"}
-                      alt={project.title}
-                      className="w-full h-full object-cover"
+                      alt={`${project.title} full screenshot`}
+                      className="w-full h-auto object-contain rounded-lg"
                     />
-                  </Parallax>
-                </div>
+                    <DialogClose asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="absolute top-4 right-4 text-white bg-black/40 hover:bg-black/60 rounded-full"
+                        aria-label="Close image preview"
+                      >
+                        &times;
+                      </Button>
+                    </DialogClose>
+                  </DialogContent>
+                </Dialog>
 
                 <CardHeader>
                   <CardTitle className="text-gray-900 dark:text-white">{project.title}</CardTitle>
@@ -104,7 +149,7 @@ const Projects = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Projects
+export default Projects;

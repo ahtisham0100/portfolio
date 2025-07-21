@@ -15,25 +15,28 @@ const Projects = ({ darkMode }) => {
 
   const projects = [
     {
-      id: 1,
-      title: "Restaurant E-commerce Site",
-      description:
-        "Developed a comprehensive restaurant e-commerce platform featuring menu browsing, user authentication, and real-time order management. Integrated Firebase for backend services and role-based access control for management functionalities with ability to handle 50+ users at a time.",
-      image: "/placeholder.svg?height=300&width=500",
-      category: "ecommerce",
-      techStack: ["Firebase", "React.js", "Node.js", "Express.js", "Bootstrap CSS"],
-      links: {
-        github: "#",
-        live: "#",
-      },
-      features: [
-        "User authentication and authorization",
-        "Menu browsing and filtering",
-        "Real-time order management",
-        "Role-based access control",
-        "Responsive design for all devices",
-      ],
-    },
+  id: 1,
+  title: "CPU Scheduling Simulator",
+  description:
+    "Built a dynamic scheduling simulator to visually demonstrate CPU scheduling algorithms such as FCFS, SJF, Round Robin, and Priority Scheduling. The platform allows users to input custom processes, configure time quantum, and visualize execution in a Gantt chart. It’s designed for educational use and real-time understanding of process scheduling behavior in operating systems.",
+  image: "/cpu-scheduler-preview.png", // Replace with actual screenshot or demo image
+  category: "simulator",
+  techStack: ["React.js", "Tailwind CSS", "ShadCN UI", "Chart.js"],
+  links: {
+    live: "https://your-live-demo-link.com", // Replace with actual link
+    github: "https://github.com/ahtisham0100/cpu-scheduler-simulator", // Replace with actual repo
+  },
+  features: [
+    "Interactive process input with arrival, burst, and priority fields",
+    "Support for FCFS, SJF, Round Robin, and Priority algorithms",
+    "Animated Gantt chart visualization of scheduling",
+    "Performance metrics: waiting time, turnaround time, response time",
+    "Algorithm comparison view with average metrics",
+    "Dark/light mode toggle",
+    "Responsive and accessible UI design",
+  ],
+}
+,
     {
       id: 2,
       title: "Sleep Outside – E-commerce Website",
@@ -43,8 +46,7 @@ const Projects = ({ darkMode }) => {
       category: "ecommerce",
       techStack: ["React", "CSS", "Bootstrap", "MySQL", "Node.js", "Express.js"],
       links: {
-        github: "#",
-        live: "#",
+        
       },
       features: [
         "Dynamic discount badges",

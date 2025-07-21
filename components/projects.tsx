@@ -20,7 +20,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogClose,
-} from "@/components/ui/dialog"; // Adjust this import path if needed
+} from "@/components/ui/dialog";
+
 import { Button } from "@/components/ui/button";
 
 const Projects = () => {
@@ -47,7 +48,7 @@ const Projects = () => {
       title: "Online Design Tool",
       description:
         "Built a web-based platform that allows users to visually model software architecture components such as modules, services, databases, and interfaces. The tool supports drag-and-drop diagramming, system layering, entity-relationship modeling, and versioned saving. Designed to help developers and students plan and document software systems using industry-recognized architectural patterns.",
-      techStack: ["HTML" , "CSS", "React", "Bootstrap"],
+      techStack: ["HTML", "CSS", "React", "Bootstrap"],
       image: "projects/ahti-sham.rocks_.png",
       githubLink: "https://github.com/ahtisham0100/sda_cea",
       liveLink: "https://sda-cea.vercel.app/",
@@ -70,7 +71,6 @@ const Projects = () => {
               opacity={[0.7, 1]}
             >
               <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-                {/* Use DialogTrigger for image click */}
                 <Dialog>
                   <DialogTrigger asChild>
                     <div className="h-48 overflow-hidden cursor-pointer">
@@ -84,17 +84,24 @@ const Projects = () => {
                     </div>
                   </DialogTrigger>
 
-                  <DialogContent className="sm:max-w-5xl max-w-full p-0 bg-transparent shadow-none">
-                    <img
-                      src={project.image || "/placeholder.svg"}
-                      alt={`${project.title} full screenshot`}
-                      className="w-full h-auto object-contain rounded-lg"
-                    />
+                  <DialogContent className="max-w-5xl w-full bg-white dark:bg-gray-900 p-4 sm:p-6 rounded-lg shadow-lg">
+                    <DialogHeader>
+                      <DialogTitle className="text-lg sm:text-xl text-gray-900 dark:text-white">
+                        {project.title}
+                      </DialogTitle>
+                    </DialogHeader>
+                    <div className="max-h-[80vh] overflow-auto rounded-md">
+                      <img
+                        src={project.image || "/placeholder.svg"}
+                        alt={`${project.title} Screenshot`}
+                        className="w-full max-h-[70vh] object-contain rounded-md"
+                      />
+                    </div>
                     <DialogClose asChild>
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="absolute top-4 right-4 text-white bg-black/40 hover:bg-black/60 rounded-full"
+                        className="absolute top-4 right-4 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-full"
                         aria-label="Close image preview"
                       >
                         &times;

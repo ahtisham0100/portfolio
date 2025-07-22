@@ -24,25 +24,53 @@ const Contact = () => {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault()
+  //   setIsSubmitting(true)
 
-    // Simulate form submission
+  //   try {
+  //     await new Promise((resolve) => setTimeout(resolve, 1500))
+  //     setSubmitStatus("success")
+  //     setFormData({ name: "", email: "", subject: "", message: "" })
+  //   } catch (error) {
+  //     setSubmitStatus("error")
+  //   } finally {
+  //     setIsSubmitting(false)
+  //   }
+  // }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
     try {
-      // In a real application, you would send the form data to your backend
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      setSubmitStatus("success")
-      setFormData({ name: "", email: "", subject: "", message: "" })
+      const response = await fetch("https://portfolioapi-production-efa8.up.railway.app/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+
+      if (!response.ok) {
+        console.log(response)
+        throw new Error("Failed to submit");
+      }
+
+      setSubmitStatus("success");
+      setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
-      setSubmitStatus("error")
+      console.error("Submission error:", error);
+      setSubmitStatus("error");
     } finally {
-      setIsSubmitting(false)
-      // Reset status after 5 seconds
-      setTimeout(() => setSubmitStatus(null), 5000)
+      setIsSubmitting(false);
     }
   }
-
   return (
     <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-4 md:px-6">

@@ -33,7 +33,6 @@ function App() {
           <Skills darkMode={darkMode} />
           <Experience darkMode={darkMode} />
           <Projects darkMode={darkMode} />
-          <Contact darkMode={darkMode} />
         </main>
         <Footer darkMode={darkMode} />
       </div>

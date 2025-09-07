@@ -73,14 +73,14 @@ const Contact = () => {
   }
   return (
     <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-800">
-      <div className="container mx-auto px-4 md:px-6">
+      {/* <div className="container mx-auto px-4 md:px-6">
         <Parallax translateY={[-20, 20]} opacity={[0.7, 1]} className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Contact Me</h2>
           <div className="w-20 h-1 bg-blue-600 dark:bg-blue-500 mx-auto mt-2"></div>
         </Parallax>
 
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8"> */}
             <Parallax translateY={[30, -30]} opacity={[0.8, 1]}>
               <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-8">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Get In Touch</h3>
@@ -112,7 +112,8 @@ const Contact = () => {
                 </div>
               </div>
             </Parallax>
-
+            {/* removed the contact me form  */}
+{/* 
             <Parallax translateY={[50, -50]} opacity={[0.8, 1]}>
               <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-8">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Send Message</h3>
@@ -216,10 +217,10 @@ const Contact = () => {
                   </div>
                 </form>
               </div>
-            </Parallax>
-          </div>
+            </Parallax> */}
+          {/* </div>
         </div>
-      </div>
+      </div> */}
     </section>
   )
 }

@@ -1,119 +1,203 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { GitlabIcon as GitHub, Linkedin, Mail } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Parallax } from "react-scroll-parallax"
-import ResumeButton from "./resume-button"
+import { useEffect, useState } from "react"
+import { Terminal, Github, ExternalLink, Code, Zap } from "lucide-react"
 
-const Hero = () => {
-  const [typedText, setTypedText] = useState("")
-const headline =  ["Full Stack Developer", "Software Engineer", "Web Developer", "Tech Enthusiast"]
+export default function Hero() {
+  const [terminalOutput, setTerminalOutput] = useState("")
+  const [currentLine, setCurrentLine] = useState("")
+  const [lineIndex, setLineIndex] = useState(0)
+  const [charIndex, setCharIndex] = useState(0)
+  const [isClient, setIsClient] = useState(false)
+
+  const commands = [
+    "$ whoami",
+    "Muhammad Ahtisham Arif",
+    "",
+    "$ cat skills.json",
+    '{ "frontend": ["React.js", "Next.js", "Tailwind CSS"] }',
+    '{ "backend": ["Node.js", "Firebase", "API Development"] }',
+    '{ "tools": ["Git", "Docker", "VS Code"] }',
+    "",
+    "$ ls projects/",
+    "smart-transport-system/",
+    "booking-application/",
+    "portfolio-website/",
+    "",
+    "$ echo $CONTACT",
+    "ahtisham0100@gmail.com",
+    "",
+    "$ curl https://ahtisham.live",
+    "✨ Portfolio loaded successfully!",
+    "",
+    "$ npm run deploy",
+    "🚀 Ready to build amazing things...",
+  ]
+
   useEffect(() => {
- let textIndex = 0
-  let index = 0
-      let fullText = headline[textIndex];
-    const typingInterval = setInterval(() => {
-      if (index < fullText.length) {
-       
-        setTypedText(fullText.substring(0, index + 1))
-        index++
-      } else {
-        setTimeout(() => {
-            textIndex = (textIndex + 1); // Cycle through the headlines
-       if(textIndex >= headline.length) {
-          textIndex = 0; // Reset to the first headline
-        }
-       fullText = headline[textIndex];
-        index = 0; // Reset index for the next headline
-        setTypedText(""); // Clear the text before typing the next headline
-          } , 2000) // Pause before starting the next headline
-     
-      }
-    }, 100)
+    setIsClient(true)
+  }, [])
 
-    return () => clearInterval(typingInterval)
+  useEffect(() => {
+    if (!isClient || lineIndex >= commands.length) return
 
-}, [])
+    const currentCommand = commands[lineIndex]
 
+    if (currentCommand === "") {
+      setTerminalOutput((prev) => prev + "\n")
+      setCurrentLine("")
+      setTimeout(() => {
+        setLineIndex((prev) => prev + 1)
+      }, 300)
+      return
+    }
 
+    if (charIndex < currentCommand.length) {
+      const timer = setTimeout(
+        () => {
+          setCurrentLine(currentCommand.slice(0, charIndex + 1))
+          setCharIndex((prev) => prev + 1)
+        },
+        currentCommand.startsWith("$") ? 100 : 50,
+      )
+
+      return () => clearTimeout(timer)
+    } else {
+      const timer = setTimeout(() => {
+        setTerminalOutput((prev) => prev + currentCommand + "\n")
+        setCurrentLine("")
+        setCharIndex(0)
+        setLineIndex((prev) => {
+          const next = prev + 1
+          if (next >= commands.length) {
+            setTimeout(() => {
+              setTerminalOutput("")
+              setLineIndex(0)
+            }, 3000)
+          }
+          return next
+        })
+      }, 800)
+
+      return () => clearTimeout(timer)
+    }
+  }, [isClient, lineIndex, charIndex, commands])
+
+  if (!isClient) {
+    return (
+      <section className="min-h-screen flex items-center justify-center bg-slate-950 text-white px-4">
+        <div className="max-w-4xl w-full bg-black/50 backdrop-blur-lg rounded-2xl border border-emerald-500/30 shadow-2xl p-6">
+          <div className="animate-pulse text-emerald-400 font-mono">Initializing terminal...</div>
+        </div>
+      </section>
+    )
+  }
 
   return (
-    <section
-      id="home"
-      className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 pt-16"
-    >
-      <div className="container mx-auto px-4 md:px-6 py-12 flex flex-col md:flex-row items-center">
-        <div className="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
-          <Parallax translateY={[-20, 20]} opacity={[0.8, 1]}>
-            <p className="text-blue-600 dark:text-blue-400 font-medium mb-2">Hello, I'm</p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4">
-              Muhammad Ahtisham Arif
-            </h1>
-          </Parallax>
+    <section className="min-h-screen relative overflow-hidden bg-slate-950 text-white px-4 py-10">
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950/20">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.1),transparent_50%)]" />
+        <div
+          className="absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,rgba(16,185,129,0.1),transparent_60deg,rgba(6,182,212,0.1),transparent_120deg,rgba(16,185,129,0.1))] animate-spin"
+          style={{ animationDuration: "20s" }}
+        />
+      </div>
 
-          <Parallax translateY={[-15, 15]} opacity={[0.7, 1]}>
-            <h2 className="text-2xl md:text-3xl font-semibold text-gray-700 dark:text-gray-300 mb-6 h-8">
-              {typedText}
-              <span className="animate-pulse">|</span>
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 text-lg mb-8 max-w-lg mx-auto md:mx-0">
-              A passionate full-stack developer with expertise in building interactive, scalable, and responsive web
-              applications.
-            </p>
-          </Parallax>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-emerald-400/30 rounded-full animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 3}s`,
+            }}
+          />
+        ))}
+      </div>
 
-          <Parallax translateY={[-10, 10]} opacity={[0.9, 1]}>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-              <Button className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800">
-                <a href="#contact" className="flex items-center gap-2">
-                  Contact Me <Mail size={16} />
-                </a>
-              </Button>
-              <ResumeButton resumeUrl="/resume.html" />
-            </div>
-
-            <div className="flex gap-4 mt-8 justify-center md:justify-start">
-              <a
-                href="https://github.com/ahtisham0100"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                <GitHub size={24} />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/muhammad-ahtisham0100/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                <Linkedin size={24} />
-              </a>
-              <a
-                href="mailto:ahtisham0100@gmail.com"
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                <Mail size={24} />
-              </a>
-            </div>
-          </Parallax>
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen">
+        <div className="text-center mb-8 space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-emerald-400 text-sm font-mono backdrop-blur-sm">
+            <Zap className="w-4 h-4" />
+            <span>Full Stack Developer</span>
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-white via-emerald-200 to-cyan-300 bg-clip-text text-transparent">
+            Muhammad Ahtisham
+          </h1>
+          <p className="text-xl text-slate-300 max-w-2xl">Crafting digital experiences with modern web technologies</p>
         </div>
 
-        <div className="md:w-1/2 flex justify-center">
-          <Parallax translateY={[-30, 30]} scale={[0.9, 1.1]} rotate={[-5, 5]}>
-            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-blue-600 dark:border-blue-500 shadow-xl">
-              <img
-                src="/pf.jpg?height=320&width=320"
-                alt="Muhammad Ahtisham Arif"
-                className="w-full h-full object-cover"
-              />
+        <div className="max-w-4xl w-full bg-black/80 backdrop-blur-xl rounded-2xl border border-emerald-500/30 shadow-2xl overflow-hidden group hover:border-emerald-400/50 transition-all duration-500">
+          <div className="bg-slate-800/90 px-6 py-4 flex items-center justify-between border-b border-emerald-500/20">
+            <div className="flex items-center gap-4">
+              <div className="flex gap-2">
+                <div className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-400 transition-colors cursor-pointer" />
+                <div className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-400 transition-colors cursor-pointer" />
+                <div className="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-400 transition-colors cursor-pointer" />
+              </div>
+              <div className="flex items-center gap-2 text-slate-300">
+                <Terminal className="w-4 h-4 text-emerald-400" />
+                <span className="text-sm font-mono">ahtisham@portfolio:~</span>
+              </div>
             </div>
-          </Parallax>
+            <div className="flex items-center gap-2 text-slate-400">
+              <Code className="w-4 h-4" />
+              <span className="text-xs font-mono">zsh</span>
+            </div>
+          </div>
+
+          <div className="p-6 font-mono text-sm leading-relaxed min-h-[400px] relative">
+            <div className="text-emerald-400 whitespace-pre-line">
+              {terminalOutput}
+              {currentLine}
+              <span className="animate-pulse">|</span>
+            </div>
+
+            <div className="absolute inset-0 bg-gradient-to-t from-emerald-500/5 to-transparent pointer-events-none" />
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-4 mt-8 justify-center">
+          <a
+            href="https://github.com/ahtisham0100"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-6 py-3 flex items-center gap-3 hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:scale-105"
+          >
+            <Github className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+            <span className="font-medium">GitHub</span>
+          </a>
+
+          <a
+            href="https://ahtisham.live"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-xl px-6 py-3 flex items-center gap-3 hover:from-emerald-400 hover:to-cyan-400 transition-all duration-300 hover:scale-105 font-semibold shadow-lg hover:shadow-emerald-500/25"
+          >
+            <ExternalLink className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+            <span>Portfolio</span>
+          </a>
+
+          <a
+            href="mailto:ahtisham0100@gmail.com"
+            className="group bg-slate-800/50 backdrop-blur-sm border border-slate-600/30 rounded-xl px-6 py-3 flex items-center gap-3 hover:bg-slate-700/50 hover:border-slate-500/50 transition-all duration-300 hover:scale-105"
+          >
+            <div className="w-5 h-5 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400 flex items-center justify-center">
+              <span className="text-xs font-bold text-slate-900">@</span>
+            </div>
+            <span className="font-medium">Contact</span>
+          </a>
+        </div>
+
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-emerald-400/30 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-emerald-400 rounded-full mt-2 animate-pulse" />
+          </div>
         </div>
       </div>
     </section>
   )
 }
-
-export default Hero

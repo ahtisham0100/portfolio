@@ -1,31 +1,38 @@
 import type React from "react"
-import "./globals.css"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import { ThemeProvider } from "@/components/theme-provider"
-import { Toaster } from "@/components/ui/toaster"
+import { Inter, Fira_Code } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
+import { Suspense } from "react"
+import "./globals.css"
 
-const inter = Inter({ subsets: ["latin"] })
+// Google Fonts
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+})
+
+const firaCode = Fira_Code({
+  subsets: ["latin"],
+  variable: "--font-fira",
+})
 
 export const metadata: Metadata = {
-  title: "Muhammad Ahtisham Arif - Software Engineer",
+  title: "Muhammad Ahtisham Arif - Full-Stack Developer",
   description:
-    "Portfolio website of Muhammad Ahtisham Arif, a Software Engineer specializing in full-stack web development.",
-    generator: 'v0.dev'
+    "Cyberpunk-themed portfolio showcasing full-stack development expertise with modern web technologies",
+  generator: "v0.app",
 }
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          {children}
-          <Toaster />
-        </ThemeProvider>
+    <html className={`${inter.variable} ${firaCode.variable} antialiased`} lang="en">
+      <body className="font-sans">
+        <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+        <Analytics />
       </body>
     </html>
   )

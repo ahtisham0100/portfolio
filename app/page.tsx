@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, ExternalLink, Code2, Terminal, Database, Cpu, Globe, ChevronRight, Phone, GraduationCap, Award, FileText } from 'lucide-react';
 
-/**
- * ------------------------------------------------------------------
- * DATA SOURCE
- * ------------------------------------------------------------------
- */
+
 const PORTFOLIO_DATA = {
   personalInfo: {
     name: "Muhammad Ahtisham Arif",

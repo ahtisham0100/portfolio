@@ -82,17 +82,17 @@ const PORTFOLIO_DATA = {
  * ------------------------------------------------------------------
  */
 
-// 1. Navigation (Bordered Grid Style)
+// 1. Navigation (High Glassmorphism & Transparent)
 const Navbar = () => {
   return (
-    <nav className="sticky top-0 w-full z-50 bg-white/60 backdrop-blur-xl border-b border-black/5 shadow-sm transition-all supports-[backdrop-filter]:bg-white/50">
+    <nav className="sticky top-0 w-full z-50 bg-black/30 backdrop-blur-2xl border-b border-white/10 shadow-sm transition-all">
       <div className="max-w-7xl mx-auto flex flex-wrap md:flex-nowrap">
         {/* Name Section */}
-        <div className="w-full md:w-1/3 p-4 md:p-6 border-b md:border-b-0 md:border-r border-black/5 flex items-center justify-between md:justify-start">
-          <div className="font-mono text-lg font-bold tracking-tighter text-black">
+        <div className="w-full md:w-1/3 p-4 md:p-6 border-b md:border-b-0 md:border-r border-white/10 flex items-center justify-between md:justify-start">
+          <div className="font-mono text-lg font-bold tracking-tighter text-white">
             {PORTFOLIO_DATA.personalInfo.name}
           </div>
-          <a href={PORTFOLIO_DATA.personalInfo.github} target="_blank" rel="noreferrer" className="md:hidden text-black">
+          <a href={PORTFOLIO_DATA.personalInfo.github} target="_blank" rel="noreferrer" className="md:hidden text-white">
             <Github size={20} />
           </a>
         </div>
@@ -103,7 +103,7 @@ const Navbar = () => {
             <a 
               key={link.name} 
               href={link.href}
-              className="flex-1 min-w-[100px] text-center py-4 md:py-6 text-xs md:text-sm font-mono text-gray-600 hover:text-black hover:bg-white/40 transition-colors border-r border-black/5 last:border-r-0"
+              className="flex-1 min-w-[100px] text-center py-4 md:py-6 text-xs md:text-sm font-mono text-gray-400 hover:text-white hover:bg-white/10 transition-colors border-r border-white/10 last:border-r-0"
             >
               {link.name.toUpperCase()}
             </a>
@@ -373,9 +373,7 @@ const Footer = () => (
       <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
           <div className="text-center md:text-left">
               <h3 className="text-xl font-bold text-white mb-2">{PORTFOLIO_DATA.personalInfo.name}</h3>
-              <p className="text-gray-500 text-sm">
-                  Built with React, Tailwind, and Architectural Precision.
-              </p>
+
           </div>
           <div className="flex gap-6">
               <a href={`mailto:${PORTFOLIO_DATA.personalInfo.email}`} className="text-gray-400 hover:text-white transition-colors">
@@ -396,7 +394,7 @@ const Footer = () => (
 const App = () => {
   return (
     <div className="bg-black min-h-screen text-white font-sans selection:bg-white selection:text-black">
-      {/* Google Fonts Import */}
+      {/* Google Fonts Import & Global Styles */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@400;700&display=swap');
         
@@ -409,11 +407,22 @@ const App = () => {
             background-size: 40px 40px;
         }
         
-        /* Custom Scrollbar for horizontal nav */
+        /* Hiding scrollbar for specific elements (nav) */
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }
         .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* --- Global Scrollbar Hiding --- */
+        /* Chrome, Safari, Opera */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        /* Firefox, IE, Edge */
+        html {
             -ms-overflow-style: none;
             scrollbar-width: none;
         }

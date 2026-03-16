@@ -6,7 +6,7 @@ const PORTFOLIO_DATA = {
   personalInfo: {
     name: "Muhammad Ahtisham Arif",
     role: "Full Stack Developer",
-    bio: "6+ months of experience in building responsive, user-centric web applications with a strong foundation in JavaScript, React.js, and Node.js. Adept at turning design mock-ups into functional UI, optimizing performance, and integrating backend services.",
+    bio: "1+ years of experience in building responsive, user-centric web applications with a strong foundation in JavaScript, React.js, and Node.js. Adept at turning design mock-ups into functional UI, optimizing performance, and integrating backend services.",
     email: "ahtisham0100@gmail.com",
     phone: "+92 0301 0910933",
     github: "https://github.com/ahtisham0100",
@@ -16,7 +16,7 @@ const PORTFOLIO_DATA = {
   education: {
     degree: "Bachelors in Engineering | Software Engineering",
     institution: "National University of Sciences and Technology (NUST)",
-    gpa: "3.02"
+    gpa: "3.1"
   },
   navLinks: [
     { name: "Profile", href: "#hero" },
